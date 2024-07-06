@@ -1,0 +1,40 @@
+﻿<Window x:Name="window" x:Class="EarthClock.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EarthClock"
+        mc:Ignorable="d"
+        
+        Title="MainWindow" Height="500" Width="500" WindowStyle="None" SizeChanged="Window_SizeChanged" Background="Transparent" AllowsTransparency="True" Topmost="True" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:HalfWidthConverter x:Key="HalfWidthConverter"/>
+    </Window.Resources>
+    <Grid Name="MainGrid" Background="Transparent">
+
+        <Border Background="#AAFFFFFF" Name="MainBorder"  Width="auto" Height="auto" CornerRadius="1000">
+            <Viewbox>
+                <TextBlock Name="WaitText" Margin="20" Background="Transparent" TextWrapping="WrapWithOverflow" FontSize="48" VerticalAlignment="Center" TextAlignment="Center" FontFamily="Quicksand Medium" Foreground="SteelBlue">Getting latest Earth image...</TextBlock>
+            </Viewbox>
+        </Border>
+        
+        <Canvas Name="MainCanvas" Background="Transparent">
+            <Canvas.RenderTransform>
+                <RotateTransform Angle="-23.5" CenterX="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualWidth, Converter={StaticResource HalfWidthConverter}}" CenterY="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualWidth, Converter={StaticResource HalfWidthConverter}}"/>
+            </Canvas.RenderTransform>
+            <Ellipse Name="CircleImage"  Width="{Binding ActualWidth, ElementName=window, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=window, Mode=OneWay}">
+                <Ellipse.Fill>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Image Name="GOESImage"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Canvas>
+        
+
+
+
+    </Grid>
+</Window>
